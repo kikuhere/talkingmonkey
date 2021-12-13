@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Talking Monkey</title>
+</head>
+
+<body class="has-background-success-light">
+    <div class="container is-max-desktop">
+        <div class="columns is-flex is-flex-direction-column is-vcentered is-justify-content-center is-fullheight">
+            <div class="logo">
+                <a href="/"><img src="logo.png" alt=""></a>
+            </div>
+            <div class="column is-two-thirds">
+                <div class="box">
+                    <form action="/" method="post">
+                        <div class="field">
+                            <label class="label is-size-4">Enter Text to Speech</label>
+                            <div class="control">
+                                <textarea class="textarea is-success is-size-5" name="text" id="text"
+                                    placeholder="Example : I will never quit"></textarea>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="voice" class="label is-size-4">Choose the Voice</label>
+                            <div class="control">
+                                <div class="select is-success">
+                                    <select name="voice" id="voice"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="" class="label is-size-4">Speed</label>
+                            <div class="control">
+                                <input class="slider is-fullwidth is-success" min="0" max="3" value="1" step="0.1"
+                                    id="speed" type="range">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="" class="label is-size-4">Pitch</label>
+                            <div class="control">
+                                <input class="slider is-fullwidth is-success" min="0" max="2" value="1" step="0.1"
+                                    id="pitch" type="range">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-success is-size-5" type="button" id="play">Play</button>
+                                <button class="button is-success is-size-5" type="button" id="pause">Pause</button>
+                                <button class="button is-success is-size-5" type="button" id="stop">Stop</button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <audio src=""></audio>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../synthesis.js" defer></script>
+    <script>
+        const text = document.getElementById("text");
+        const voice = document.getElementById("voice");
+        const speed = document.getElementById("speed");
+        const speakText = () => {
+            speechSynthesis.speak(new SpeechSynthesisUtterance(text.value));
+        };
+    </script>
+</body>
+
+</html>
