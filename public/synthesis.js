@@ -34,11 +34,6 @@ if (typeof synth !== "undefined" && synth.onvoiceschanged !== undefined) {
   synth.onvoiceschanged = populateVoiceList;
 }
 
-// Play button
-playBtn.addEventListener("click", () => {
-  playText(textInput.value);
-});
-
 // playing audio of text
 function playText(text) {
   if (synth.paused) synth.resume();
@@ -61,6 +56,11 @@ function playText(text) {
   textInput.disabled = true;
   synth.speak(utter);
 }
+
+// Play button
+playBtn.addEventListener("click", () => {
+  playText(textInput.value);
+});
 
 // pause button
 pauseBtn.addEventListener("click", () => {
