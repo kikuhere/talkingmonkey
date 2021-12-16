@@ -14,3 +14,8 @@
   /* box-sizing: border-box; */
   /* margin: auto; */
 }
+
+mark {
+  color: #000;
+  background-color: #f4d03f;
+}

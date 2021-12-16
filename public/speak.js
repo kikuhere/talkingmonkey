@@ -41,42 +41,58 @@ if (synth.onvoiceschanged !== undefined) {
 // speak function
 const speak = (text) => {
   if (textInput.value !== "") {
-    if (synth.paused) synth.resume();
-    const speakText = new SpeechSynthesisUtterance(text);
+    if (synth.paused) {
+      synth.resume();
+    } else {
+      const speakText = new SpeechSynthesisUtterance(text);
 
-    // on Error speaking text
-    speakText.onerror = (e) => {
-      console.error("something went wrong");
-    };
+      // on Error speaking text
+      speakText.onerror = (e) => {
+        console.error("something went wrong");
+      };
 
-    //on finised speaking
-    speakText.onend = () => {
-      textInput.disabled = false;
-    };
+      //on finised speaking
+      speakText.onend = () => {
+        textInput.disabled = false;
+      };
 
-    //Change voice
-    const selectedVoice =
-      voiceInput.selectedOptions[0].getAttribute("data-name");
-    voices.forEach((voice) => {
-      if (voice.name === selectedVoice) {
-        speakText.voice = voice;
-      }
-    });
+      //Change voice
+      const selectedVoice =
+        voiceInput.selectedOptions[0].getAttribute("data-name");
+      voices.forEach((voice) => {
+        if (voice.name === selectedVoice) {
+          speakText.voice = voice;
+        }
+      });
 
-    // set pitch and speed of the voice
-    speakText.rate = speedInput.value;
-    speakText.pitch = pitchInput.value;
+      // set pitch and speed of the voice
+      speakText.rate = speedInput.value;
+      speakText.pitch = pitchInput.value;
 
-    // making textinput disabled
-    textInput.disabled = true;
+      // making textinput disabled
+      textInput.disabled = true;
 
-    //getting the current speaking charector
-    speakText.onboundary = (e) => {
-      currentCharector = e.charIndex;
-    };
+      //getting the current speaking charector
+      speakText.onboundary = (e) => {
+        currentCharector = e.charIndex;
 
-    // speak the text
-    synth.speak(speakText);
+        //marking current speaking word
+        const wordStart = e.charIndex;
+        const wordLength = e.charLength;
+        const wordEnd = wordStart + wordLength;
+        const currentWord = textInput.value.substring(wordStart, wordEnd);
+        const markedText =
+          textInput.value.substring(0, wordStart) +
+          "<mark>" +
+          currentWord +
+          "</mark>" +
+          textInput.value.substring(wordEnd);
+        textInput.innerHTML = markedText;
+      };
+
+      // speak the text
+      synth.speak(speakText);
+    }
   }
 };
 
