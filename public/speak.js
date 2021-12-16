@@ -54,6 +54,8 @@ const speak = (text) => {
       //on finised speaking
       speakText.onend = () => {
         textInput.disabled = false;
+        document.getElementById("textOutput").innerHTML = null;
+        document.getElementById("textOutput").style.display = "none";
       };
 
       //Change voice
@@ -64,6 +66,9 @@ const speak = (text) => {
           speakText.voice = voice;
         }
       });
+
+      // visual display of text which is being spoken
+      document.getElementById("textOutput").style.display = "block";
 
       // set pitch and speed of the voice
       speakText.rate = speedInput.value;
@@ -87,7 +92,8 @@ const speak = (text) => {
           currentWord +
           "</mark>" +
           textInput.value.substring(wordEnd);
-        textInput.innerHTML = markedText;
+        // textInput.innerHTML = markedText;
+        document.getElementById("textOutput").innerHTML = markedText;
       };
 
       // speak the text
